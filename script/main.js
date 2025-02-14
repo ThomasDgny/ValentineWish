@@ -275,6 +275,28 @@ const animationTimeline = () => {
   });
 };
 
+const resolveFetch = () => {
+  return new Promise((resolve, reject) => {
+    fetchData();
+    resolve("Fetch done!");
+  });
+};
+
+document
+  .getElementById("passwordForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    const password = document.getElementById("password").value;
+    const correctPassword = "01012025"; // Set your local password here
+    if (password === correctPassword) {
+      document.getElementById("center-screen").style.display = "none";
+      document.getElementById("romanticMusic").play();
+      resolveFetch().then(animationTimeline());
+    } else {
+      alert("Incorrect password. Please try again.");
+    }
+  });
+
 // Import the data to customize and insert them into page
 const fetchData = () => {
   fetch("customize.json")
@@ -295,11 +317,3 @@ const fetchData = () => {
 };
 
 // Run fetch and animation in sequence
-const resolveFetch = () => {
-  return new Promise((resolve, reject) => {
-    fetchData();
-    resolve("Fetch done!");
-  });
-};
-
-resolveFetch().then(animationTimeline());
